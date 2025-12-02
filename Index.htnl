@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sehat Connect – Smart Hospital Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Sehat Connect – Smart hospital & emergency care finder app by Shivek Pratap Singh."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #071b34, #0f3c5d);
+      color: #f5f7fb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 960px;
+      background: rgba(4, 10, 23, 0.92);
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .left {
+      padding: 28px 28px 24px 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(32, 178, 170, 0.12);
+      color: #7de1d7;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #24e1b7;
+      box-shadow: 0 0 0 4px rgba(36, 225, 183, 0.32);
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 34px);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: 15px;
+      color: #c7d2fe;
+      margin-bottom: 18px;
+    }
+
+    .highlight {
+      color: #4adeff;
+      font-weight: 600;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+      font-size: 12px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature {
+      background: rgba(15, 23, 42, 0.85);
+      border-radius: 16px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 3px;
+      font-size: 13px;
+    }
+
+    .feature-text {
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .btn-primary {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #22c55e, #0ea5e9);
+      color: #021019;
+      box-shadow: 0 16px 30px rgba(6, 182, 212, 0.55);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+      transition: 0.18s ease-out;
+    }
+
+    .secondary-text {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .contact-mini {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #a5b4fc;
+    }
+
+    .contact-mini span {
+      color: #f9fafb;
+      font-weight: 500;
+    }
+
+    .right {
+      position: relative;
+      padding: 18px 22px 18px 18px;
+      background: radial-gradient(circle at top, #22c55e33, transparent),
+        radial-gradient(circle at bottom, #0ea5e94d, #020617);
+      border-left: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .phone-frame {
+      position: relative;
+      margin: auto;
+      max-width: 260px;
+      aspect-ratio: 9 / 18.5;
+      border-radius: 28px;
+      padding: 10px;
+      background: radial-gradient(circle at top, #111827, #020617);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .phone-inner {
+      height: 100%;
+      border-radius: 22px;
+      padding: 14px 14px 10px 14px;
+      background: radial-gradient(circle at top, #0ea5e933, #020617);
+      border: 1px solid rgba(15, 23, 42, 0.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .phone-dot {
+      width: 34px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .phone-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
+    .logo-pill {
+      width: 28px;
+      height: 28px;
+      border-radius: 12px;
+      background: conic-gradient(
+        from 210deg,
+        #22c55e,
+        #0ea5e9,
+        #6366f1,
+        #22c55e
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.7);
+    }
+
+    .logo-cross {
+      width: 16px;
+      height: 16px;
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.95);
+      position: relative;
+    }
+
+    .logo-cross::before,
+    .logo-cross::after {
+      content: "";
+      position: absolute;
+      background: #22c55e;
+      inset: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .logo-cross::before {
+      width: 70%;
+      height: 24%;
+      border-radius: 999px;
+    }
+
+    .logo-cross::after {
+      width: 24%;
+      height: 70%;
+      border-radius: 999px;
+    }
+
+    .phone-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #e5e7eb;
+    }
+
+    .phone-sub {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .status-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .status-pill {
+      flex: 1;
+      border-radius: 999px;
+      padding: 6px 7px;
+      font-size: 9px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+    }
+
+    .status-dot.green {
+      background: #22c55e;
+      box-shadow: 0 0 12px #22c55e;
+    }
+
+    .status-dot.red {
+      background: #f97373;
+      box-shadow: 0 0 12px #f97373;
+    }
+
+    .status-pill span {
+      font-weight: 600;
+      font-size: 9px;
+    }
+
+    .list {
+      margin-top: 12px;
+      padding: 8px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      font-size: 10px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .list-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .pill-small {
+      font-size: 9px;
+      padding: 3px 6px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.4);
+      color: #a5f3fc;
+    }
+
+    .pill-small.red {
+      background: rgba(127, 29, 29, 0.7);
+      color: #fecaca;
+    }
+
+    .pill-small.neutral {
+      background: rgba(30, 64, 175, 0.6);
+      color: #bfdbfe;
+    }
+
+    .footer-bar {
+      margin-top: 10px;
+      font-size: 8px;
+      display: flex;
+      justify-content: space-between;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section class="left">
+      <div class="badge">
+        <span class="badge-dot"></span> Smart Health Platform
+      </div>
+
+      <h1>Sehat Connect</h1>
+      <p class="tagline">
+        Aapke near-by <span class="highlight">best hospitals</span>, doctors
+        aur emergency services – sab ek hi app mein.
+      </p>
+
+      <div class="pill-row">
+        <div class="pill">Hospital &amp; bed availability</div>
+        <div class="pill">Real-time emergency support</div>
+        <div class="pill">Blood bank connect</div>
+        <div class="pill">Doctor discovery</div>
+      </div>
+
+      <p class="section-title">Key features</p>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-title">Smart Hospital Matching</div>
+          <p class="feature-text">
+            Location, rating, facilities aur emergency capacity ke basis par
+            best options suggest karta hai.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-title">Live Status &amp; Alerts</div>
+          <p class="feature-text">
+            ICU, beds, ambulance aur blood availability ka real-time status*.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-title">For Patients &amp; Doctors</div>
+          <p class="feature-text">
+            Patients ke liye easy search, hospitals ke liye simple dashboard.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-title">Made in India</div>
+          <p class="feature-text">
+            Developed by Shivek Pratap Singh as a student-led health-tech
+            initiative.
+          </p>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn-primary">Get Early Access</button>
+        <p class="secondary-text">
+          Mobile app (Android) coming soon. Contact for demo / integration.
+        </p>
+      </div>
+
+      <p class="contact-mini">
+        Contact: <span>shivekpratapsingh@example.com</span> &middot;
+        Student developer, India
+      </p>
+    </section>
+
+    <section class="right">
+      <div class="phone-frame">
+        <div class="phone-inner">
+          <div>
+            <div class="phone-top">
+              <span>09:41</span>
+              <div class="phone-dot"></div>
+              <span>4G ● 82%</span>
+            </div>
+
+            <div class="phone-logo">
+              <div class="logo-pill">
+                <div class="logo-cross"></div>
+              </div>
+              <div>
+                <div class="phone-title">Sehat Connect</div>
+                <div class="phone-sub">Nearby care, in seconds.</div>
+              </div>
+            </div>
+
+            <div class="status-row">
+              <div class="status-pill">
+                <span>Hospitals Live</span>
+                <div class="status-dot green"></div>
+              </div>
+              <div class="status-pill">
+                <span>Emergency Route</span>
+                <div class="status-dot red"></div>
+              </div>
+            </div>
+
+            <div class="list">
+              <div class="list-row">
+                <div>
+                  City Care Hospital
+                  <div style="font-size: 9px; color: #9ca3af">
+                    1.2 km • 4.6 ★
+                  </div>
+                </div>
+                <div>
+                  <span class="pill-small">Beds: 08 / 32</span>
+                </div>
+              </div>
+
+              <div class="list-row">
+                <div>
+                  Metro Heart Institute
+                  <div style="font-size: 9px; color: #9ca3af">
+                    3.1 km • 4.8 ★
+                  </div>
+                </div>
+                <div>
+                  <span class="pill-small neutral">ICU: 02 free</span>
+                </div>
+              </div>
+
+              <div class="list-row">
+                <div>
+                  Govt. Medical College
+                  <div style="font-size: 9px; color: #9ca3af">
+                    5.4 km • Trauma ready
+                  </div>
+                </div>
+                <div>
+                  <span class="pill-small red">High rush</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bar">
+            <span>Home ▴</span>
+            <span>Emergency • Blood • Profile</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
